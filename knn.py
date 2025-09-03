@@ -11,7 +11,7 @@ def dis(x1,x2):
     return distance
 
 class KNN:
-    def __init__(self,k=3):
+    def __init__(self,k=5):
         self.k=k
     def fit(self,x,y):
         # we dont need to do much here in knn
