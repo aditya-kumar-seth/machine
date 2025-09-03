@@ -1,8 +1,13 @@
 # knn algorithm implementation 
+# find the k nearest neighbours 
+# and find teh most common
+#  label or class that would also be 
+#the predicted label
+
 import numpy as np
 from collections import Counter
 def dis(x1,x2):
-    distance = np.sqrt(np.sum(x2-x1)**2)
+    distance = np.sqrt(np.sum((x2-x1)**2))
     return distance
 
 class KNN:
@@ -12,7 +17,6 @@ class KNN:
         # we dont need to do much here in knn
         self.x_train = x 
         self.y_train = y 
-
     def predict(self,X):
         # find the distance of x from all 
         # the data points and find the k nearest ones 
@@ -25,5 +29,11 @@ class KNN:
         indices = np.argsort(distances)[:self.k]#return indecies for first k neighbours
         k_nearest_labels = [self.y_train[i] for i in indices] 
         # find the most commmon class labels 
-        majority_vote = Counter(k_nearest_labels).most_common()
+        majority_vote = Counter(k_nearest_labels).most_common(1)[0][0]
         return majority_vote
+    def accuracy(self,y,y_pred):
+        if(len(y) == 0):
+            return 0
+        y_pred = np.array(y_pred)
+        acc = np.sum(y == y_pred)/len(y)
+        return acc
